@@ -31,7 +31,7 @@ function App() {
   return (
     <div className='max-w-[1344px] mx-auto flex flex-col items-center my-20'>
 
-      <h1 className='text-6xl text-white font-black mb-36'>
+      <h1 className='text-6xl text-white font-black mb-32'>
         <span className='bg-name-gradient bg-clip-text text-transparent'>TinderGames</span>
       </h1>
 
