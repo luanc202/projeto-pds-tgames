@@ -40,36 +40,16 @@ function App() {
       </h1>
 
       <div className='grid grid-cols-6 gap-6 mt-16'>
-        <GameBanner
-          title='League of Legends'
-          bannerUrl='/image 1.png'
-          adsCount={4}
-        />
-        <GameBanner
-          title='Apex Legends'
-          bannerUrl='/image 5.png'
-          adsCount={4}
-        />
-        <GameBanner
-          title='Counter Strike Global Offensive'
-          bannerUrl='/image 3.png'
-          adsCount={4}
-        />
-        <GameBanner
-          title='World of Warcraft'
-          bannerUrl='/image 7.png'
-          adsCount={4}
-        />
-        <GameBanner
-          title='Dota 2'
-          bannerUrl='/image 2.png'
-          adsCount={4}
-        />
-        <GameBanner
-          title='Fortnite'
-          bannerUrl='/image 6.png'
-          adsCount={4}
-        />
+      {games.map(game => {
+          return (
+            <GameBanner
+              key={game.id}
+              title={game.title}
+              bannerUrl={game.bannerUrl}
+              adsCount={game._count.ads}
+            />
+          )
+        })}
       </div>
       <Dialog.Root>
         <CreateAdBanner />
