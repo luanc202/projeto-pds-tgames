@@ -37,7 +37,7 @@ export function Home() {
       </h1>
 
       <div className='grid grid-cols-6 gap-6 mt-16'>
-      {games.map(game => {
+        {games.map(game => {
           return (
             <GameBanner
               key={game.id}
@@ -48,11 +48,7 @@ export function Home() {
           )
         })}
       </div>
-      <Dialog.Root>
-        <CreateAdBanner />
-
-        <CreateAdModal />
-      </Dialog.Root>
+      <CreateAdBanner />
     </div>
   )
 }
