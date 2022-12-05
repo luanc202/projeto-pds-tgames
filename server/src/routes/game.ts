@@ -14,7 +14,24 @@ export async function gameRoutes(fastify: FastifyInstance) {
         }
     });
   
-    return {games};
+    return res.send(games);
+  });
+
+  fastify.post('/games', async (req, res) => {
+    const createAdParams = z.object({
+      title: z.string(),
+      imgUrl: z.string(),
+    });
+    const game = createAdParams.parse(req.body);    
+
+    const createdGame = await prisma.game.create({
+      data: {
+        title: game.title,
+        bannerUrl: game.imgUrl,
+      },
+    });
+
+    return res.status(201).send(createdGame);
   });
 }
 

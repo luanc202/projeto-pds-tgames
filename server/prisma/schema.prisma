@@ -39,6 +39,7 @@ model User {
   password  String
   name      String
   createdAt DateTime @default(now())
+  role      String   @default("USER")
 }
 
 model AdminUser {

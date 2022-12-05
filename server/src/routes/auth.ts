@@ -61,6 +61,11 @@ export async function userRoutes(fastify: FastifyInstance) {
       expiresIn: '7 days',
     });
 
-    return response.status(200).send({ token, message: "Login successful" });
+    const respUser = {
+      name: user.name,
+      role: user.role,
+    };
+
+    return response.status(200).send({ token, message: "Login successful", user: respUser });
   });
 }
