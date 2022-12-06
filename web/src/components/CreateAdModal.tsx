@@ -105,49 +105,49 @@ export function CreateAdModal() {
                 <ToggleGroup.Item
                   value='0'
                   title='Domingo'
-                  className={`w-8 h-8 rounded ${weekDays.includes('0') ? 'bg-violet-500' : 'bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded ${weekDays.includes('0') ? 'bg-fuchsia-600' : 'bg-zinc-900'}`}
                 >
                   D
                 </ToggleGroup.Item>
                 <ToggleGroup.Item
                   value='1'
                   title='Segunda'
-                  className={`w-8 h-8 rounded ${weekDays.includes('1') ? 'bg-violet-500' : 'bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded ${weekDays.includes('1') ? 'bg-fuchsia-600' : 'bg-zinc-900'}`}
                 >
                   S
                 </ToggleGroup.Item>
                 <ToggleGroup.Item
                   value='2'
                   title='Terça'
-                  className={`w-8 h-8 rounded ${weekDays.includes('2') ? 'bg-violet-500' : 'bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded ${weekDays.includes('2') ? 'bg-fuchsia-600' : 'bg-zinc-900'}`}
                 >
                   T
                 </ToggleGroup.Item>
                 <ToggleGroup.Item
                   value='3'
                   title='Quarta'
-                  className={`w-8 h-8 rounded ${weekDays.includes('3') ? 'bg-violet-500' : 'bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded ${weekDays.includes('3') ? 'bg-fuchsia-600' : 'bg-zinc-900'}`}
                 >
                   Q
                 </ToggleGroup.Item>
                 <ToggleGroup.Item
                   value='4'
                   title='Quinta'
-                  className={`w-8 h-8 rounded ${weekDays.includes('4') ? 'bg-violet-500' : 'bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded ${weekDays.includes('4') ? 'bg-fuchsia-600' : 'bg-zinc-900'}`}
                 >
                   Q
                 </ToggleGroup.Item>
                 <ToggleGroup.Item
                   value='5'
                   title='Sexta'
-                  className={`w-8 h-8 rounded ${weekDays.includes('5') ? 'bg-violet-500' : 'bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded ${weekDays.includes('5') ? 'bg-fuchsia-600' : 'bg-zinc-900'}`}
                 >
                   S
                 </ToggleGroup.Item>
                 <ToggleGroup.Item
                   value='6'
                   title='Sábado'
-                  className={`w-8 h-8 rounded ${weekDays.includes('6') ? 'bg-violet-500' : 'bg-zinc-900'}`}
+                  className={`w-8 h-8 rounded ${weekDays.includes('6') ? 'bg-fuchsia-600' : 'bg-zinc-900'}`}
                 >
                   S
                 </ToggleGroup.Item>
@@ -189,7 +189,7 @@ export function CreateAdModal() {
               className='bg-zinc-500 px-5 h-12 rounded-md font-semibold hover:bg-zinc-600'>Cancelar
             </Dialog.Close>
             <button
-              className='bg-violet-500 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-violet-600'
+              className='bg-fuchsia-600 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-fuchsia-700'
               type='submit'
             >
               <GameController size={24} />
