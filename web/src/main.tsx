@@ -14,7 +14,10 @@ const router = createBrowserRouter([
     element: <Home />
   },
   {
-    path: '/game/:gameName',
+    path: '/game/:id',
+    loader: async ({ params }) => {
+      return (params.id);
+    } ,
     element: <GameAds />
   },
   {

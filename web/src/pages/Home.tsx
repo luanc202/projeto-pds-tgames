@@ -44,6 +44,7 @@ export function Home() {
               title={game.title}
               bannerUrl={game.bannerUrl}
               adsCount={game._count.ads}
+              linkTo={`${game.id}`}
             />
           )
         })}

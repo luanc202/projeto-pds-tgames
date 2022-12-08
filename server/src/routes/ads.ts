@@ -46,6 +46,7 @@ export async function adsRoutes(fastify: FastifyInstance) {
         hourStart: true,
         hourEnd: true,
         createdAt: true,
+        discord: true,
       },
       where: {
         gameId,

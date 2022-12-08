@@ -5,6 +5,7 @@ import { LoginUserModal } from "./LoginUserModal";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { CreateAccountModal } from "./CreateAccountModal";
 
 export function CreateAdBanner() {
     const { user } = useContext(AuthContext);
@@ -67,7 +68,7 @@ export function CreateAdBanner() {
                                             <User size={24} />
                                             Criar conta
                                         </Dialog.Trigger>
-                                        <CreateAdModal />
+                                        <CreateAccountModal />
                                     </Dialog.Root>
 
                                     <Dialog.Root>
