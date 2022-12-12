@@ -11,11 +11,11 @@ datasource db {
 }
 
 model Game {
-  id        String @id @default(uuid())
+  id        String  @id @default(uuid())
   title     String
   bannerUrl String
-
-  ads Ad[]
+  isActive  Boolean @default(true)
+  ads       Ad[]
 }
 
 model Ad {
@@ -40,6 +40,7 @@ model User {
   name      String
   createdAt DateTime @default(now())
   role      String   @default("USER")
+  isActive  Boolean  @default(true)
 }
 
 model AdminUser {
