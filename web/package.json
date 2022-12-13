@@ -19,6 +19,7 @@
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-headless-tabs": "^6.0.3",
     "react-router-dom": "^6.4.3",
     "sort-by": "^1.2.0"
   },

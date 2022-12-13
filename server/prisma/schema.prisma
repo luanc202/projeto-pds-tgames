@@ -11,17 +11,18 @@ datasource db {
 }
 
 model Game {
-  id        String @id @default(uuid())
+  id        String  @id @default(uuid())
   title     String
   bannerUrl String
-
-  ads Ad[]
+  isActive  Boolean @default(true)
+  ads       Ad[]
 }
 
 model Ad {
   id              String   @id @default(uuid())
   name            String
   gameId          String
+  userId          String   @default("0")
   yearsPlaying    Int
   discord         String
   weekDays        String
@@ -30,6 +31,7 @@ model Ad {
   useVoiceChannel Boolean
   createdAt       DateTime @default(now())
 
+  user User @relation(fields: [userId], references: [id])
   game Game @relation(fields: [gameId], references: [id])
 }
 
@@ -40,6 +42,9 @@ model User {
   name      String
   createdAt DateTime @default(now())
   role      String   @default("USER")
+  isActive  Boolean  @default(true)
+
+  ads Ad[]
 }
 
 model AdminUser {

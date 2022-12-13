@@ -1,39 +1,31 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { SignIn } from 'phosphor-react';
-import { FormEvent, useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { FormEvent, useState } from 'react';
 
 import { api } from '../lib/axios';
 import { Input } from './Form/input';
 
 export function CreateAccountModal() {
-  const { setUser } = useContext(AuthContext);
 
   const [pwd, setPwd] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [name, setName] = useState<string>('');
 
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
 
-    if (!email.trim() || !pwd.trim()) {
+    if (!email.trim() || !pwd.trim() || !name.trim()) {
       return alert('Por favor, preencha os campos.');
     }
 
     try {
-      const resp = await api.post(`login`, {
+      const resp = await api.post(`/users`, {
+        name: name,
         email: email,
         password: pwd,
       });
 
-      setUser({
-        name: resp.data.user.name,
-        email: email,
-        password: pwd,
-        role: resp.data.user.role,
-        token: resp.data.token,
-      });
-
-      alert('Login com sucesso!');
+      alert('Cadastro feito com sucesso!');
     } catch (err) {
       console.log(err);
       alert('Erro ao enviar formulário.');
@@ -46,18 +38,23 @@ export function CreateAccountModal() {
       <Dialog.Overlay className='bg-black/60 inset-0 fixed' />
 
       <Dialog.Content className='fixed bg-[#2A2634] py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w-[480px] shadow-lg shadow-black/25'>
-        <Dialog.Title className='text-3xl font-black'>Faça seu login</Dialog.Title>
+        <Dialog.Title className='text-3xl font-black'>Crie sua conta</Dialog.Title>
 
         <form className='mt-8 flex flex-col gap-4' onSubmit={handleLogin}>
 
           <div className='flex flex-col gap-2'>
+            <label htmlFor="email">Nome</label>
+            <Input required value={name} onChange={e => setName(e.target.value)} name='name' id='name' type='text' placeholder='Digite seu nome aqui' />
+          </div>
+
+          <div className='flex flex-col gap-2'>
             <label htmlFor="email">Email</label>
-            <Input value={email} onChange={e => setEmail(e.target.value)} name='email' id='email' type='email' placeholder='exemplo@exemplo.com' />
+            <Input required value={email} onChange={e => setEmail(e.target.value)} name='email' id='email' type='email' placeholder='exemplo@exemplo.com' />
           </div>
 
           <div className='flex flex-col gap-2'>
             <label htmlFor="password">Senha</label>
-            <Input type='password' value={pwd} onChange={e => setPwd(e.target.value)} name='password' id='password' placeholder='Digite sua senha aqui' />
+            <Input required type='password' value={pwd} onChange={e => setPwd(e.target.value)} name='password' id='password' placeholder='Digite sua senha aqui' />
           </div>
 
           <footer className='mt-4 flex justify-end gap-4'>
@@ -69,7 +66,7 @@ export function CreateAccountModal() {
               type='submit'
             >
               <SignIn size={24} />
-              Fazer login
+              Cadastrar
             </button>
           </footer>
         </form>

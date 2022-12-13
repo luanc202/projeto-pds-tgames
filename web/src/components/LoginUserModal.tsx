@@ -3,11 +3,10 @@ import { SignIn } from 'phosphor-react';
 import { FormEvent, useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
-import { api } from '../lib/axios';
 import { Input } from './Form/input';
 
 export function LoginUserModal() {
-  const { setUser } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
 
   const [pwd, setPwd] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -20,18 +19,7 @@ export function LoginUserModal() {
     }
 
     try {
-      const resp = await api.post(`login`, {
-        email: email,
-        password: pwd,
-      });
-
-      setUser({
-        name: resp.data.user.name,
-        email: email,
-        password: pwd,
-        role: resp.data.user.role,
-        token: resp.data.token,
-      });
+      signIn(pwd, email);
 
       alert('Login com sucesso!');
     } catch (err) {

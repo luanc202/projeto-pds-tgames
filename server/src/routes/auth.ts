@@ -54,8 +54,8 @@ export async function userRoutes(fastify: FastifyInstance) {
     }
 
     const token = fastify.jwt.sign({
-      name: user.email,
-      password: user.password,
+      name: user.name,
+      email: user.email,
     }, {
       sub: user.id,
       expiresIn: '7 days',

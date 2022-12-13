@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import * as Dialog from '@radix-ui/react-dialog'
 import { GameBanner } from '../components/GameBanner';
 
 import { CreateAdBanner } from '../components/CreateAdBanner';
 
-import { CreateAdModal } from '../components/CreateAdModal';
 import axios from 'axios';
 
 interface Game {
@@ -13,7 +11,8 @@ interface Game {
   bannerUrl: string,
   _count: {
     ads: number,
-  }
+  },
+  isActive: boolean,
 }
 
 export function Home() {
@@ -38,14 +37,16 @@ export function Home() {
 
       <div className='grid grid-cols-6 gap-6 mt-16'>
         {games.map(game => {
-          return (
+           if (game.isActive) {
+            return (
             <GameBanner
               key={game.id}
               title={game.title}
               bannerUrl={game.bannerUrl}
               adsCount={game._count.ads}
+              linkTo={`${game.id}`}
             />
-          )
+          )}
         })}
       </div>
       <CreateAdBanner />
