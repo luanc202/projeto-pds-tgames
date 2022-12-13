@@ -1,36 +1,15 @@
-import { House, Plus } from "phosphor-react";
-import { FormEvent, useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { Input } from "../components/Form/input";
+import { useContext } from "react";
+import { AddGameForm } from "../components/AddGameForm";
 import { AuthContext } from "../context/AuthContext";
-import { api } from "../lib/axios";
+import { useTabs } from "react-headless-tabs";
+import { TabSelector } from "../components/TabSelector";
+import { ManageGames } from "../components/ManageGames";
+import { ManageUsers } from "../components/ManageUsers";
 
 export function AdminPanel() {
   const { user } = useContext(AuthContext);
 
-  const [gameTitle, setGameTitle] = useState<string>('');
-  const [imgUrl, setImgUrl] = useState<string>('');
-
-  async function handleAddGame(event: FormEvent) {
-    event.preventDefault();
-
-    if (!imgUrl.trim() || !gameTitle.trim()) {
-      return alert('Por favor, preencha os campos.');
-    }
-
-    try {
-      await api.post(`/games`, {
-        title: gameTitle,
-        imgUrl: imgUrl,
-      });
-
-      alert('Game adicionado com sucesso!');
-    } catch (err) {
-      console.log(err);
-      alert('Erro ao enviar novo game.');
-    } finally {
-    }
-  }
+  const [selectedTab, setSelectedTab] = useTabs(["addGame", 'manageUsers', 'manageGames'], "addGame");
 
   if (user.role !== 'ADMIN') {
     return (
@@ -42,37 +21,40 @@ export function AdminPanel() {
 
   else {
     return (
-      <div className='max-w-[1344px] mx-auto flex flex-col items-center my-20'>
-        <form className='mt-8 w-[32rem] p-6 flex flex-col gap-4 bg-gray-700/20' onSubmit={handleAddGame}>
-          <div className='flex flex-col gap-2 text-gray-300'>
-            <label className="font-bold" htmlFor="name">Nome do Game</label>
-            <Input value={gameTitle} onChange={e => setGameTitle(e.target.value)} name='name' id='name' type='text' placeholder='League of Legends' />
-          </div>
-
-          <div className='flex flex-col gap-2 text-gray-300'>
-            <label className="font-bold" htmlFor="imageURL">URL da Imagem</label>
-            <Input value={imgUrl} onChange={e => setImgUrl(e.target.value)} name='imageURL' id='imageURL' type='text' placeholder='Digite sua senha aqui' />
-          </div>
-
-          <footer className='mt-4 flex-row items-center space-y-4'>
-            <button
-              className='bg-fuchsia-600 w-full px-5 h-12 rounded-md font-semibold flex items-center justify-center gap-3 hover:bg-fuchsia-700'
-              type='submit'
+      <>
+        <div className='max-w-[1344px] mx-auto flex flex-col items-center my-20'>
+          <h1 className='pl-6 font-black text-white text-7xl block'>Painel Admin</h1>
+          <nav className="flex border-b border-fuchsia-900">
+            <TabSelector
+              isActive={selectedTab === "addGame"}
+              onClick={() => setSelectedTab("addGame")}
             >
-              <Plus size={24} />
-              Cadastrar Novo Game
-            </button>
-            <Link
-              to='/'
-              className='bg-fuchsia-600 w-full px-5 h-12 rounded-md font-semibold flex justify-center items-center gap-3 hover:bg-fuchsia-700'
-              type='submit'
+              Adicionar Game
+            </TabSelector>
+            <TabSelector
+              isActive={selectedTab === "manageGames"}
+              onClick={() => setSelectedTab("manageGames")}
             >
-              <House size={24} />
-              Retornar a Home
-            </Link>
-          </footer>
-        </form>
-      </div>
+              Gerenciar Games
+            </TabSelector>
+            <TabSelector
+              isActive={selectedTab === "manageUsers"}
+              onClick={() => setSelectedTab("manageUsers")}
+            >
+              Gerenciar Usuários
+            </TabSelector>
+          </nav>
+          {selectedTab === "addGame" && (
+            <AddGameForm />
+          )}
+          {selectedTab === "manageGames" &&
+          (<ManageGames />)
+          }
+          {selectedTab === "manageUsers" &&
+          (<ManageUsers />)
+          }
+        </div>
+      </>
     )
   }
 }
