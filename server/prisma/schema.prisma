@@ -22,6 +22,7 @@ model Ad {
   id              String   @id @default(uuid())
   name            String
   gameId          String
+  userId          String   @default("0")
   yearsPlaying    Int
   discord         String
   weekDays        String
@@ -30,6 +31,7 @@ model Ad {
   useVoiceChannel Boolean
   createdAt       DateTime @default(now())
 
+  user User @relation(fields: [userId], references: [id])
   game Game @relation(fields: [gameId], references: [id])
 }
 
@@ -41,6 +43,8 @@ model User {
   createdAt DateTime @default(now())
   role      String   @default("USER")
   isActive  Boolean  @default(true)
+
+  ads Ad[]
 }
 
 model AdminUser {
