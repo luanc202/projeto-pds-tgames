@@ -39,7 +39,6 @@ export function GameAds() {
       setGameData(response.data.filter((game: GameData) => game.id === gameId)[0]);
     });
   }, []);
-  console.log(ads);
 
 
   if (!user.name) {
@@ -58,11 +57,11 @@ export function GameAds() {
             bannerUrl={gameData.bannerUrl}
             title={gameData.title} />
         </Link>
-        <div className='grid grid-cols-5 gap-6 mt-12'>
+        <div className='grid grid-cols-3 gap-6 mt-12'>
           {ads.map(ad => {
             return (
               <UserAdCard
-                key={ad.discord}
+                key={ad.discord + Math.random()}
                 name={ad.name}
                 yearsPlaying={ad.yearsPlaying}
                 discord={ad.discord}
