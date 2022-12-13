@@ -1,13 +1,11 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { SignIn } from 'phosphor-react';
-import { FormEvent, useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { FormEvent, useState } from 'react';
 
 import { api } from '../lib/axios';
 import { Input } from './Form/input';
 
 export function CreateAccountModal() {
-  const { setUser } = useContext(AuthContext);
 
   const [pwd, setPwd] = useState<string>('');
   const [email, setEmail] = useState<string>('');

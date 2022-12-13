@@ -1,4 +1,3 @@
-import * as Dialog from "@radix-ui/react-checkbox";
 import * as Checkbox from '@radix-ui/react-checkbox'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import { Check } from "phosphor-react";
@@ -17,7 +16,7 @@ interface UserAdCardProps {
 export function UserAdCard(props: UserAdCardProps) {
 
   return (
-    <div className=" text-white relative rounded-lg">
+    <div className=" text-white rounded-lg border-4 p-2 border-[#472d86] w-[26rem]">
       <form className='mt-8 flex flex-col gap-4'>
 
         <div className='flex flex-col gap-2'>
