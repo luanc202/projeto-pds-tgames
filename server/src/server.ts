@@ -7,7 +7,7 @@ import { discordRoutes } from './routes/discord';
 import { gameRoutes } from './routes/game';
 import { adsRoutes } from './routes/ads';
 import { userRoutes } from './routes/auth';
-import { stringify } from 'querystring';
+import { adminRoutes } from './routes/admin';
 
 const prisma = new PrismaClient({
     log: ['query'],
@@ -18,7 +18,7 @@ async function bootstrap() {
         logger: true,
     });
 
-    await fastify.register(cors,{
+    await fastify.register(cors, {
         origin: true,
     });
 
@@ -30,6 +30,7 @@ async function bootstrap() {
     fastify.register(adsRoutes);
     fastify.register(gameRoutes);
     fastify.register(userRoutes);
+    fastify.register(adminRoutes);
 
     await fastify.listen({ port: 3333, host: '0.0.0.0' });
 }
