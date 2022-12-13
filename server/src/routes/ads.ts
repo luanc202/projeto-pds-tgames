@@ -3,9 +3,10 @@ import { FastifyInstance } from 'fastify';
 import { prisma } from '../lib/prisma';
 import { convertHourStringToMinutes } from '../utils/convert-hour-string-to-minutes';
 import { convertMinutesToHourString } from '../utils/convert-minutes-to-hour-string';
+import { authenticate } from '../plugins/authenticate';
 
 export async function adsRoutes(fastify: FastifyInstance) {
-  fastify.post('/games/:id/ads', async (request, response) => {
+  fastify.post('/games/:id/ads',{ onRequest: [authenticate] }, async (request, response) => {
     const createAdParams = z.object({
       id: z.string(),
     });
@@ -29,7 +30,7 @@ export async function adsRoutes(fastify: FastifyInstance) {
     return response.status(201).send(ad);
   });
 
-  fastify.get('/games/:id/ads', async (req, res) => {
+  fastify.get('/games/:id/ads',{ onRequest: [authenticate] }, async (req, res) => {
     const getAdsParams = z.object({
       id: z.string(),
     });
@@ -47,9 +48,17 @@ export async function adsRoutes(fastify: FastifyInstance) {
         hourEnd: true,
         createdAt: true,
         discord: true,
+        userId: true,
       },
       where: {
         gameId,
+        AND: [
+          {
+            user: {
+              isActive: true,
+            }
+          },
+        ],
       },
       orderBy: {
         createdAt: 'desc',
@@ -59,9 +68,8 @@ export async function adsRoutes(fastify: FastifyInstance) {
     return (ads.map(ad => {
       return {
         ...ad,
-        weekDays: ad.weekDays.split(','),
         hourStart: convertMinutesToHourString(ad.hourStart),
-        hourEnd: convertMinutesToHourString(ad.hourEnd),
+        hourEnd: convertMinutesToHourString(ad.hourEnd)
       }
     }));
   });
