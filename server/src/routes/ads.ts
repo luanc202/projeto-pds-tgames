@@ -6,13 +6,20 @@ import { convertMinutesToHourString } from '../utils/convert-minutes-to-hour-str
 import { authenticate } from '../plugins/authenticate';
 
 export async function adsRoutes(fastify: FastifyInstance) {
-  fastify.post('/games/:id/ads',{ onRequest: [authenticate] }, async (request, response) => {
+  fastify.post('/games/:id/ads', async (request, response) => {
     const createAdParams = z.object({
       id: z.string(),
     });
 
     const gameId = createAdParams.parse(request.params).id;
     const body: any = request.body;
+    console.log(body);
+    
+    const user = await prisma.user.findUnique({
+      where: {
+        email: body.userId,
+      },
+    });
 
     const ad = await prisma.ad.create({
       data: {
@@ -24,13 +31,14 @@ export async function adsRoutes(fastify: FastifyInstance) {
         hourStart: convertHourStringToMinutes(body.hourStart),
         hourEnd: convertHourStringToMinutes(body.hourEnd),
         useVoiceChannel: body.useVoiceChannel,
+        userId: user?.id,
       },
     })
 
     return response.status(201).send(ad);
   });
 
-  fastify.get('/games/:id/ads',{ onRequest: [authenticate] }, async (req, res) => {
+  fastify.get('/games/:id/ads', { onRequest: [authenticate] }, async (req, res) => {
     const getAdsParams = z.object({
       id: z.string(),
     });

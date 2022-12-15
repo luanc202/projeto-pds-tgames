@@ -4,8 +4,9 @@ import { Input } from '../components/Form/input';
 import * as Dialog from '@radix-ui/react-dialog'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
-import { useEffect, useState, FormEvent } from 'react';
+import { useEffect, useState, FormEvent, useContext } from 'react';
 import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 interface Game {
   id: string,
@@ -13,9 +14,11 @@ interface Game {
 }
 
 export function CreateAdModal() {
+  const { user } = useContext(AuthContext);
+
   const [games, setGames] = useState<Game[]>([]);
   const [weekDays, setWeekDays] = useState<string[]>([]);
-  const [useVoiceChannel, setUseVoiceChannel] = useState<boolean>(false);
+  const [useVoiceChannel, setUseVoiceChannel] = useState<boolean>(false);  
 
   useEffect(() => {
     axios('http://localhost:3333/games').then(response => {
@@ -42,6 +45,7 @@ export function CreateAdModal() {
       hourStart: data.hourStart,
       hourEnd: data.hourEnd,
       useVoiceChannel: useVoiceChannel,
+      userId: user.email,
     });
 
     alert('Form submit success');

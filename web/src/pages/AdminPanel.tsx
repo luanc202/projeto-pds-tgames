@@ -8,7 +8,7 @@ import { ManageUsers } from "../components/ManageUsers";
 
 export function AdminPanel() {
   const { user } = useContext(AuthContext);
-
+ 
   const [selectedTab, setSelectedTab] = useTabs(["addGame", 'manageUsers', 'manageGames'], "addGame");
 
   if (user.role !== 'ADMIN') {

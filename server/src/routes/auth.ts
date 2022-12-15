@@ -64,6 +64,7 @@ export async function userRoutes(fastify: FastifyInstance) {
     const respUser = {
       name: user.name,
       role: user.role,
+      email: userInfo.email,
     };
 
     return response.status(200).send({ token, message: "Login successful", user: respUser });
